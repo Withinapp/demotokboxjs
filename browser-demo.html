@@ -29,10 +29,18 @@
   <div id="subscribersContainer"></div>
   <div id="signals"></div>
 
+<script src="//www.parsecdn.com/js/parse-1.6.12.min.js"></script>
 <script src='https://static.opentok.com/webrtc/v2.2/js/TB.min.js'></script>
 <script type="text/javascript" charset="utf-8">
   // *** Fill the following variables using your own Project info from the Dashboard  ***
   // ***                  (https://dashboard.tokbox.com/projects)                     ***
+  
+  Parse.initialize("N2iDiOKa4FcESJTUYz9P2qwme0Ud36q1EkMq1hZD", "umLxjl8MNuHFnS6OUwhkOjL2z1Qd63fcfYruCdqy");
+  var TestObject = Parse.Object.extend("TestObject");
+  var testObject = new TestObject();
+  testObject.save({foo: "bar"}).then(function(object) {
+    alert("yay! it worked");
+  });
 
   var apiKey = '45437912';    // Replace with your own API key.
   var sessionId = '2_MX40NTQzNzkxMn5-MTQ1MDIwNDYxMTMzOH5iSU5QVDBrc2txdEx2ZE9wUnV0NnRnbnF-UH4'; // Replace with your generated session ID.
