@@ -18,6 +18,7 @@
 </head>
 <body>
   <div id="links" width="50%" margin="0 auto">
+         <input type="password" name="psw" id="passwordBox">
          <input type="button" value="Connect" id ="connectLink" onClick="javascript:connect()" />
          <input type="button" value="Disconnect" id ="disconnectLink" onClick="javascript:disconnect()" style="display:none" />
          <input type="button" value="Publish" id ="publishLink" onClick="javascript:startPublishing()" style="display:none" />
@@ -53,6 +54,7 @@
     sessionDisconnected: function(event) {
       // The user was disconnected from the Session. Any subscribers
       // and publishers will automatically be removed from the dom.
+      show('passwordBox');
       show('connectLink');
       hide('disconnectLink');
       hide('publishLink');
@@ -87,6 +89,7 @@
         show('publishLink');
         show('signalLink');
         hide('connectLink');
+        hide('passwordBox');
       }
     });
   }
