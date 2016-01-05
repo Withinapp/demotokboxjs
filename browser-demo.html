@@ -36,15 +36,15 @@
   // ***                  (https://dashboard.tokbox.com/projects)                     ***
   
   Parse.initialize("QcUKAsdMfpUGTLiO1vBqDvt7MfZGj6f8rdtVmESL", "xXkTXr4oFR56Y9I6xZC6jCWHd91QvM1htXZhZoh5");
-  var TestObject = Parse.Object.extend("TestObject");
-  var testObject = new TestObject();
-  testObject.save({foo: "bar"}).then(function(object) {
-    alert("yay! it worked");
-  });
+  //var TestObject = Parse.Object.extend("TestObject");
+  //var testObject = new TestObject();
+  //testObject.save({foo: "bar"}).then(function(object) {
+  //  alert("yay! it worked");
+  //});
 
   var apiKey = '45437912';    // Replace with your own API key.
   var sessionId = '2_MX40NTQzNzkxMn5-MTQ1MDIwNDYxMTMzOH5iSU5QVDBrc2txdEx2ZE9wUnV0NnRnbnF-UH4'; // Replace with your generated session ID.
-  var token = 'T1==cGFydG5lcl9pZD00NTQzNzkxMiZzaWc9YzkxOWNjODdlZWRlNDhhNDlhMmQ3YzI2ZTMxODM5MzU0ZGVlYTRmNzpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5UUXpOemt4TW41LU1UUTFNREl3TkRZeE1UTXpPSDVpU1U1UVZEQnJjMnR4ZEV4MlpFOXdVblYwTm5SbmJuRi1VSDQmY3JlYXRlX3RpbWU9MTQ1MTYzMTA3OSZub25jZT0wLjI1MDU2NjkyODYzMTI5NzkmZXhwaXJlX3RpbWU9MTQ1MjIzNTg0MSZjb25uZWN0aW9uX2RhdGE9';     // Replace with your generated token (use Project Tools or an OpenTok server-side library)
+  var token;// = 'T1==cGFydG5lcl9pZD00NTQzNzkxMiZzaWc9YzkxOWNjODdlZWRlNDhhNDlhMmQ3YzI2ZTMxODM5MzU0ZGVlYTRmNzpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5UUXpOemt4TW41LU1UUTFNREl3TkRZeE1UTXpPSDVpU1U1UVZEQnJjMnR4ZEV4MlpFOXdVblYwTm5SbmJuRi1VSDQmY3JlYXRlX3RpbWU9MTQ1MTYzMTA3OSZub25jZT0wLjI1MDU2NjkyODYzMTI5NzkmZXhwaXJlX3RpbWU9MTQ1MjIzNTg0MSZjb25uZWN0aW9uX2RhdGE9';     // Replace with your generated token (use Project Tools or an OpenTok server-side library)
 
   //var apiKey = '472032';    // Replace with your own API key.
   //var sessionId = '2_MX40NzIwMzJ-fjE0MTI5MDQwMzI1MzF-aVRZekk2Y0gzMFFLVERjRmQ5cjk0M2pDfn4'; // Replace with your generated session ID.
@@ -89,17 +89,27 @@
   //--------------------------------------
 
   function connect() {
-    session.connect(token, function(error) {
-      if (error) {
-        alert(error.message);
-      } else {
-        show('disconnectLink');
-        show('publishLink');
-        show('signalLink');
-        hide('connectLink');
-        hide('passwordBox');
-      }
-    });
+    Parse.Cloud.run('requestTokboxToken', {}, {
+        success: function(result) {
+          token = result["tokboxToken"];
+          
+          session.connect(token, function(error) {
+            if (error) {
+              alert(error.message);
+            } else {
+              show('disconnectLink');
+              show('publishLink');
+              show('signalLink');
+              hide('connectLink');
+              hide('passwordBox');
+            }
+          });
+          
+        },
+        error: function(error) {
+          console.log("Error requesting tokbox token.");
+        }
+      });
   }
 
   function disconnect() {
