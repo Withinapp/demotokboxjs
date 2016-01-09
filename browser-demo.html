@@ -62,7 +62,8 @@
   //--------------------------------------
 
   function connect() {
-    Parse.Cloud.run('requestTokboxToken', {}, {
+    var myPwd = document.getElementById('passwordBox').value;
+    Parse.Cloud.run('requestTokboxToken', {password: myPwd}, {
         success: function(result) {
           apiKey = result["tokboxApiKey"];
           sessionId = result["tokboxSessionId"];
