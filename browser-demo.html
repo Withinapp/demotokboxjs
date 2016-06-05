@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
   <title>OpenTok Test</title>
-  
+
   <style media="screen" type="text/css">
   html {
       display: table;
@@ -18,7 +18,7 @@
 </head>
 <body>
   <div id="links" width="50%" margin="0 auto">
-         <input type="password" name="psw" id="passwordBox">
+         <input type="text" name="psw" id="passwordBox">
          <input type="button" value="Connect" id ="connectLink" onClick="javascript:connect()" />
          <input type="button" value="Disconnect" id ="disconnectLink" onClick="javascript:disconnect()" style="display:none" />
          <input type="button" value="Publish" id ="publishLink" onClick="javascript:startPublishing()" style="display:none" />
@@ -34,7 +34,7 @@
 <script type="text/javascript" charset="utf-8">
   // *** Fill the following variables using your own Project info from the Dashboard  ***
   // ***                  (https://dashboard.tokbox.com/projects)                     ***
-  
+
   Parse.initialize("QcUKAsdMfpUGTLiO1vBqDvt7MfZGj6f8rdtVmESL", "xXkTXr4oFR56Y9I6xZC6jCWHd91QvM1htXZhZoh5");
   //var TestObject = Parse.Object.extend("TestObject");
   //var testObject = new TestObject();
@@ -51,7 +51,7 @@
   // Un-comment the following to set automatic logging:
   // OT.setLogLevel(OT.DEBUG);
 
-  
+
   //--------------------------------------
   //  LINK CLICK HANDLERS
   //--------------------------------------
@@ -63,7 +63,7 @@
           apiKey = result["tokboxApiKey"];
           sessionId = result["tokboxSessionId"];
           token = result["tokboxToken"];
-          
+
           session = OT.initSession(apiKey, sessionId);
 
           // Add event listeners to the session
@@ -92,7 +92,7 @@
               signalsDiv.appendChild(messageP);
             }
           });
-          
+
           session.connect(token, function(error) {
             if (error) {
               alert(error.message);
@@ -104,7 +104,7 @@
               hide('passwordBox');
             }
           });
-          
+
         },
         error: function(error) {
           console.log("Error requesting tokbox token: " + error.message);
@@ -122,7 +122,7 @@
   // Called when user wants to start publishing to the session
   function startPublishing() {
     var publisherOptions = {
-      name: 'A web-based OpenTok client',
+      name: 'Darius',
       insertMode: 'append'
     };
     publisher = OT.initPublisher('publisherContainer', publisherOptions);
